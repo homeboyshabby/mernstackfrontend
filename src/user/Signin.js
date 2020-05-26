@@ -37,9 +37,9 @@ const Signin = () => {
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <p>redirect to admin</p>;
+        return <Redirect to="/admin/dashboard" />;
       } else {
-        return <p>redirect to user</p>;
+        return <Redirect to="/user/dashboard" />;
       }
     }
     if (isAutheticated()) {
@@ -58,7 +58,7 @@ const Signin = () => {
   const errorMessage = () => {
     return (
       <div
-        className="alert alert-dange"
+        className="alert alert-danger "
         style={{ display: error ? "" : "none" }}
       >
         <h6 className="alert-danger">Oh No :(</h6>
@@ -113,7 +113,7 @@ const Signin = () => {
       {errorMessage()}
       {signInForm()}
       {performRedirect()}
-      <p>${JSON.stringify(values)}</p>
+      {/* <p>${JSON.stringify(values)}</p> */}
     </Base>
   );
 };

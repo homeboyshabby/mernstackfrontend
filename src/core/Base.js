@@ -11,21 +11,16 @@ const Base = ({
     <div className="container">
       <div className={className}>{children}</div>
     </div>
-    <div className="container">
-        {/* <hr></hr> */}
-      <footer className="footer mt-auto py-3 bg-black divborder">
-        <div className="text-white text-center py-3">
-          <h6>IF YOU HAVE ANY QUESTIONS?</h6>
-          <button
-            className="btn btn-outline-success btn-lg btnborder"
-            type="submit"
-          >
-            Contact Us
-          </button>
-        </div>
-      </footer>
-    </div>
   </div>
 );
 
 export default Base;
+
+
+{/* <div style={{width:"50%"}} class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+          <h2 class="display-5">Another headline</h2>
+          <p class="lead">And an even wittier subheading.</p>
+        </div>
+        <div class="bg-dark box-shadow mx-auto" style={{width: "80%", height: "300px", borderRadius: "21px 21px 0 0"}}></div>
+      </div> */}
