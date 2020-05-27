@@ -1,84 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles.css";
 import { API } from "../backend";
 import Base from "./Base";
+import Card from "./card";
+import { getProducts } from "./helper/coreapicalls";
 
-export default function Routes() {
-  console.log("API IS", API);
+export default function Home() {
+  const [product, setProducts] = useState([]);
+  const [error, setError] = useState(false);
+
+  const loadAllProducts = () => {
+    getProducts().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProducts(data);
+      }
+    });
+  };
+
+  const topCard = () => {
+    return (
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 font-weight-normal">The eCom Store</h1>
+          <p class="lead font-weight-normal">Best cloting linup in the game!</p>
+          <a class="btn btn-outline-secondary" href="#">
+            Log In Now!
+          </a>
+        </div>
+      </div>
+    );
+  };
+  useEffect(() => {
+    loadAllProducts();
+  }, []);
   return (
     <Base>
-      {/* <h1 className="middlefonts">Hello frontend</h1> */}
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">The eCom Store</h1>
-        <p class="lead font-weight-normal">Best cloting linup in the game!</p>
-        <a class="btn btn-outline-secondary" href="#">Log In Now!</a>
-      </div>
-    </div>
-      <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-dark mr-md-3 w-50 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-light box-shadow mx-auto" style={{width: "80%", height: "300px", borderRadius: "21px 21px 0 0"}}></div>
-      </div>
-      <div class="bg-light w-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-dark box-shadow mx-auto" style={{width: "80%", height: "300px", borderRadius: "21px 21px 0 0"}}></div>
-      </div>
-    </div>
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-    <div class="bg-light w-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <div class="my-3 p-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-dark box-shadow mx-auto" style={{width: "80%", height: "300px", borderRadius: "21px 21px 0 0"}}></div>
-      </div>
-      <div class="bg-dark w-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">Another headline</h2>
-          <p class="lead">And an even wittier subheading.</p>
-        </div>
-        <div class="bg-light box-shadow mx-auto" style={{width: "80%", height: "300px", borderRadius: "21px 21px 0 0"}}></div>
-      </div>
-      
-    </div>
+    {topCard()}
+      {product.map((product, index) => {
+        return (
+          <div key={index}>
+            <Card product={product}></Card>
+          </div>
+        );
+      })}
     </Base>
   );
 }
-
-
-{/* <div className="row">
-<div className="col-md-4">
-  <div className="column">
-    <div className="card cardborder">
-      <h3>Card 2</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-    </div>
-  </div>
-</div>
-<div className="col-md-4">
-  <div className="column">
-    <div className="card cardborder">
-      <h3>Card 2</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-    </div>
-  </div>
-</div>
-<div className="col-md-4">
-  <div className="column">
-    <div className="card cardborder">
-      <h3>Card 2</h3>
-      <p>Some text</p>
-      <p>Some text</p>
-    </div>
-  </div>
-</div>
-</div> */}

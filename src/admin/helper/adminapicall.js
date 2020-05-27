@@ -17,6 +17,21 @@ export const createCategory = (userId, token, categoryName) => {
     .catch((err) => console.log(err));
 };
 
+//delete a category
+export const deleteCategory = (userId, token, categoryId) => {
+  return fetch(`${API}category/${categoryId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    }
+  })
+    .then((resp) => {
+      return resp.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 //get all categories
 
 export const getCategories = () => {

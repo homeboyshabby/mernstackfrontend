@@ -63,6 +63,24 @@ body {
   border-top-right-radius: 0;
 }
 
+.form-signin input[type="number"]{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin textarea{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin select{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 .form-signin input[type="email"] {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
