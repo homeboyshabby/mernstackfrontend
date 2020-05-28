@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ImageHelper from "./helper/ImageHelper";
+import { Redirect } from "react-router-dom";
+import { addItemToCart } from "./helper/cartHelper";
 
-const Card = ({ product, addToCart = true, removeFromCart = false }) => {
+const Card = ({ product, addtoCart = true, removeFromCart = false }) => {
+  const [redirect, setRedirect] = useState(false);
+  const [count, setCount] = useState(product.count);
 
+  const cardTitle = product ? product.name : "A Demo Photo";
+  const cardDesc = product ? product.description : "Default Description";
+  const cardPrice = product ? product.price : "None";
 
-    const cardTitle = product ? product.name : "A Demo Photo"
-    const cardDesc = product ? product.description : "Default Description"
-    const cardPrice = product ? product.price : "None"
+  const addToCart = () => {
+    addItemToCart(product, () => setRedirect(true));
+  };
+
+  const getRedirect = (redirect) => {
+    if (redirect) {
+      return <Redirect to="/cart" />;
+    }
+  };
+
   const showAddToCart = (addToCart) => {
     return (
       addToCart && (
@@ -20,7 +34,7 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
   const showAddToCartBlack = (addToCart) => {
     return (
       addToCart && (
-        <a class="btn btn-outline-secondary" href="#">
+        <a onClick={addToCart} class="btn btn-outline-secondary">
           Add to cart
         </a>
       )
@@ -40,7 +54,7 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
   const showRemoveFromCartBlack = (removeFromCart) => {
     return (
       removeFromCart && (
-        <a class="btn btn-outline-secondary" href="#">
+        <a class="btn btn-outline-secondary">
           Remove from cart
         </a>
       )
@@ -51,13 +65,10 @@ const Card = ({ product, addToCart = true, removeFromCart = false }) => {
     <div class="card text-center m-3">
       <div class="card-header text-uppercase">{cardTitle}</div>
       <div class="card-body">
-        <p class="card-text middlefonts text-uppercase">
-          {cardDesc}
-        </p>
+        {getRedirect(redirect)}
+        <p class="card-text middlefonts text-uppercase">{cardDesc}</p>
         <ImageHelper product={product}></ImageHelper>
-        <p class="card-text middlefonts text-uppercase">
-            &#x20b9; {cardPrice}
-        </p>
+        <p class="card-text middlefonts text-uppercase">&#x20b9; {cardPrice}</p>
       </div>
       <div class="card-footer text-muted">
         {showAddToCartBlack(addToCart)}
