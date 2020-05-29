@@ -7,6 +7,7 @@ import { getProducts } from "./helper/coreapicalls";
 import { loadCart, removeItemFromCart } from "./helper/cartHelper";
 import ImageHelper from "./helper/ImageHelper";
 import { Link } from "react-router-dom";
+import Paymentb from "./paymentB";
 
 export default function Cart() {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ export default function Cart() {
     setProducts(loadCart());
   }, [reload]);
   const loadAllProducts = () => {
-    console.log(products);
+    // console.log(products);
     return (
       <div>
         {products.map((product, index) => {
@@ -101,8 +102,39 @@ export default function Cart() {
       </div>
     );
   };
+  const getAmount = () => {
+    let amount = 0;
+    products.map(p => {
+        amount = amount + p.price
+    })
+    return amount;
+}
 
-  return <Base>{loadAllProducts()}</Base>;
+  const checkoutUI = () => {
+    return (
+      <div class="row py-5 p-4 text-center bg-white rounded shadow-sm">
+        <div class="col-lg-6">
+          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+          <div class="p-4">
+            <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+            <ul class="list-unstyled mb-4">
+    <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>{getAmount()}</strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>100.00</strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Tax</strong><strong>{getAmount() * 0.18}</strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
+    <h5 class="font-weight-bold">{(getAmount() * 0.18) + getAmount() + 100}</h5>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return <Base><h3 className="text-center middlefonts">CART DETAILS</h3>{products.length > 0 ? loadAllProducts(products) : (<h3 className="middlefonts">NO PRODUCTS IN CART</h3>)}
+  {products.length > 0 ? checkoutUI() : (<h3 className="middlefonts">NOTHING TO CHECKOUT!</h3>)}
+  <div><Paymentb products={products}></Paymentb></div>
+  </Base>;
 }
 
 
